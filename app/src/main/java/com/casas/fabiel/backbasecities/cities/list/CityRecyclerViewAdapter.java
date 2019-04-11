@@ -6,17 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.casas.fabiel.backbasecities.MasterListInteraction;
 import com.casas.fabiel.backbasecities.R;
-import com.casas.fabiel.backbasecities.cities.list.CityFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerViewAdapter.ViewHolder> {
 
-    private final List<CityInfo> cities;
-    private final OnListFragmentInteractionListener listener;
+    public static final String COMMA = ", ";
+    private List<CityInfo> cities;
+    private final MasterListInteraction.OnCityFragmentInteractionListener listener;
 
-    public CityRecyclerViewAdapter(List<CityInfo> items, OnListFragmentInteractionListener listener) {
+    public CityRecyclerViewAdapter(List<CityInfo> items, MasterListInteraction.OnCityFragmentInteractionListener listener) {
         cities = items;
         this.listener = listener;
     }
@@ -32,13 +33,18 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final CityInfo cityInfo = cities.get(position);
         holder.itemInfo = cityInfo;
-        holder.city.setText(cityInfo.getName());
+        holder.city.setText(cityInfo.getName().concat(COMMA));
         holder.country.setText(cityInfo.getCountry());
     }
 
     @Override
     public int getItemCount() {
         return cities.size();
+    }
+
+    public void updateItems(List<CityInfo> cities) {
+        this.cities = cities;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -48,13 +54,13 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
 
         public ViewHolder(View view) {
             super(view);
-            city = (TextView) view.findViewById(R.id.item_number);
-            country = (TextView) view.findViewById(R.id.content);
+            city = (TextView) view.findViewById(R.id.city);
+            country = (TextView) view.findViewById(R.id.country);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.onListFragmentInteraction(itemInfo);
+                        listener.onCityInteraction(itemInfo);
                     }
                 }
             });

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 import com.casas.fabiel.backbasecities.MainActivity;
 import com.casas.fabiel.backbasecities.R;
