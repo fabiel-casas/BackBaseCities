@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class CitiesPresenterImpl implements Cities.Presenter {
 
+    public static final int DELAY_MILLIS = 1000;
     private final WeakReference<Cities.View> view;
     private final CitiesModelImpl model;
 
@@ -24,7 +25,7 @@ public class CitiesPresenterImpl implements Cities.Presenter {
             public void run() {
                 model.getCities();
             }
-        }, 1000);
+        }, DELAY_MILLIS);
     }
 
     @Override
@@ -33,5 +34,20 @@ public class CitiesPresenterImpl implements Cities.Presenter {
         if (cityView != null) {
             cityView.updateCitiesOnAdapter(cityInfoList);
         }
+    }
+
+    @Override
+    public void filterBy(final String text) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                model.filterBy(text);
+            }
+        }, DELAY_MILLIS);
+    }
+
+    @Override
+    public void clearFilter() {
+        model.clearFilter();
     }
 }

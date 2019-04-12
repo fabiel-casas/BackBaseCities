@@ -9,12 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import com.casas.fabiel.backbasecities.MasterListInteraction;
 import com.casas.fabiel.backbasecities.R;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
@@ -23,6 +23,7 @@ public class CityFragment extends Fragment implements Cities.View, MasterListInt
     private MasterListInteraction.OnCityFragmentInteractionListener listener;
     private CitiesPresenterImpl presenter;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private CityRecyclerViewAdapter adapter;
 
     @Override
@@ -37,13 +38,19 @@ public class CityFragment extends Fragment implements Cities.View, MasterListInt
         View view = inflater.inflate(R.layout.fragment_city_list, container, false);
         Context context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         DividerItemDecoration itemDecor = new DividerItemDecoration(context, VERTICAL);
         recyclerView.addItemDecoration(itemDecor);
         adapter = new CityRecyclerViewAdapter(new ArrayList<CityInfo>(), listener);
         recyclerView.setAdapter(adapter);
-        presenter.getCities();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getCities();
     }
 
     @Override
@@ -64,12 +71,20 @@ public class CityFragment extends Fragment implements Cities.View, MasterListInt
     }
 
     @Override
-    public void updateCitiesOnAdapter(List<CityInfo> cityInfoList) {
+    public void updateCitiesOnAdapter(ArrayList<CityInfo> cityInfoList) {
         adapter.updateItems(cityInfoList);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void searchItem(@NotNull String text) {
+        presenter.filterBy(text);
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void searchClosed() {
+        presenter.clearFilter();
+        progressBar.setVisibility(View.GONE);
     }
 }

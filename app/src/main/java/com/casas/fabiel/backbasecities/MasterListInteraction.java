@@ -6,6 +6,7 @@ public interface MasterListInteraction {
 
     interface OnSearchListener {
         void searchItem(String text);
+        void searchClosed();
     }
 
     interface OnCityFragmentInteractionListener {

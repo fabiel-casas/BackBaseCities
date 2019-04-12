@@ -9,15 +9,15 @@ import android.widget.TextView;
 import com.casas.fabiel.backbasecities.MasterListInteraction;
 import com.casas.fabiel.backbasecities.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerViewAdapter.ViewHolder> {
 
     public static final String COMMA = ", ";
-    private List<CityInfo> cities;
+    private ArrayList<CityInfo> cities;
     private final MasterListInteraction.OnCityFragmentInteractionListener listener;
 
-    public CityRecyclerViewAdapter(List<CityInfo> items, MasterListInteraction.OnCityFragmentInteractionListener listener) {
+    public CityRecyclerViewAdapter(ArrayList<CityInfo> items, MasterListInteraction.OnCityFragmentInteractionListener listener) {
         cities = items;
         this.listener = listener;
     }
@@ -25,7 +25,7 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_city, parent, false);
+                .inflate(R.layout.item_city, parent, false);
         return new ViewHolder(view);
     }
 
@@ -33,8 +33,8 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final CityInfo cityInfo = cities.get(position);
         holder.itemInfo = cityInfo;
-        holder.city.setText(cityInfo.getName().concat(COMMA));
-        holder.country.setText(cityInfo.getCountry());
+        holder.city.setText(cityInfo.getName().trim().concat(COMMA));
+        holder.country.setText(cityInfo.getCountry().trim());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
         return cities.size();
     }
 
-    public void updateItems(List<CityInfo> cities) {
+    public void updateItems(ArrayList<CityInfo> cities) {
         this.cities = cities;
         notifyDataSetChanged();
     }

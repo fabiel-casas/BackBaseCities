@@ -9,13 +9,22 @@
         app:layoutManager="LinearLayoutManager"
         tools:context=".cities.list.CityFragment">
 
+    <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/list"
+            android:visibility="visible"/>
+
     <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:name="com.casas.fabiel.backbasecities.cities.CityFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/text_margin"
-            android:paddingStart="@dimen/text_margin"
             app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/fragment_city"/>
+            tools:listitem="@layout/item_city"/>
 </android.support.constraint.ConstraintLayout>
