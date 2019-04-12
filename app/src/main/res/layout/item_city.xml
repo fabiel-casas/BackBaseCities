@@ -15,6 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Hi, "
+            android:lines="1"
+            android:ellipsize="end"
             android:textAppearance="?attr/textAppearanceListItem"/>
 
     <TextView
@@ -23,5 +25,7 @@
             android:layout_height="wrap_content"
             tools:text="world"
             android:textStyle="bold"
+            android:ellipsize="end"
+            android:lines="1"
             android:textAppearance="?attr/textAppearanceListItem"/>
 </LinearLayout>

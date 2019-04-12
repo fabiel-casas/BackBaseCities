@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CitiesModelImpl implements Cities.Model {
 
@@ -25,12 +26,16 @@ public class CitiesModelImpl implements Cities.Model {
     public void getCities() {
         String cityListJson = new FileReader(FILE_NAME, context.get()).read();
         cityInfoList = new Gson().fromJson(cityListJson, new TypeToken<ArrayList<CityInfo>>(){}.getType());
+        Collections.sort(cityInfoList, (cityInfoOne, cityInfoTwo) ->
+                cityInfoTwo.getName().compareTo(cityInfoOne.getName()));
         presenter.updateCitesList(cityInfoList);
     }
 
     @Override
     public void filterBy(final String filter) {
         ArrayList<CityInfo> itemList = seekOnList(filter, cityInfoList);
+        Collections.sort(itemList, (cityInfoOne, cityInfoTwo) ->
+                cityInfoTwo.getName().compareTo(cityInfoOne.getName()));
         presenter.updateCitesList(itemList);
     }
 
