@@ -4,6 +4,7 @@ import android.content.Context;
 import com.casas.fabiel.backbasecities.FileReader;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -29,13 +30,19 @@ public class CitiesModelImpl implements Cities.Model {
 
     @Override
     public void filterBy(final String filter) {
+        ArrayList<CityInfo> itemList = seekOnList(filter, cityInfoList);
+        presenter.updateCitesList(itemList);
+    }
+
+    @NotNull
+    public ArrayList<CityInfo> seekOnList(String filter, ArrayList<CityInfo> cityList) {
         ArrayList<CityInfo> itemList = new ArrayList<>();
-        for (CityInfo city : cityInfoList) {
+        for (CityInfo city : cityList) {
             if (city.getName().toLowerCase().startsWith(filter.toLowerCase())) {
                 itemList.add(city);
             }
         }
-        presenter.updateCitesList(itemList);
+        return itemList;
     }
 
     @Override

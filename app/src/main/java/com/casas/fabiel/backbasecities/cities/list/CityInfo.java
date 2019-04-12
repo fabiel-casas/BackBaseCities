@@ -9,6 +9,9 @@ public class CityInfo implements Parcelable {
     private String _id;
     private Coordinates coord;
 
+    public CityInfo() {
+    }
+
     protected CityInfo(Parcel in) {
         country = in.readString();
         name = in.readString();

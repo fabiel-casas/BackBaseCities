@@ -20,12 +20,7 @@ public class CitiesPresenterImpl implements Cities.Presenter {
 
     @Override
     public void getCities() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                model.getCities();
-            }
-        }, DELAY_MILLIS);
+        new Handler().postDelayed(() -> model.getCities(), DELAY_MILLIS);
     }
 
     @Override
@@ -38,12 +33,7 @@ public class CitiesPresenterImpl implements Cities.Presenter {
 
     @Override
     public void filterBy(final String text) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                model.filterBy(text);
-            }
-        }, DELAY_MILLIS);
+        new Handler().postDelayed(() -> model.filterBy(text), DELAY_MILLIS);
     }
 
     @Override

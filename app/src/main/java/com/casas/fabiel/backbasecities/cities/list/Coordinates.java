@@ -7,6 +7,9 @@ public class Coordinates implements Parcelable {
     private String lon;
     private String lat;
 
+    public Coordinates() {
+    }
+
     protected Coordinates(Parcel in) {
         lon = in.readString();
         lat = in.readString();
